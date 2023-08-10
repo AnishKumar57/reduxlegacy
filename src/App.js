@@ -1,36 +1,37 @@
-import React, { useContext } from 'react';
-import  "./App.css";
-import { UseContextValue } from './context/theme-context';
+import React from 'react';
+import './App.css';
+
+// useDispatch and use useSelector is imported to use appropriate functions
+
+import { useDispatch, useSelector } from 'react-redux';
+import { increment, decrement, signin } from './actions';
+
+
+
+function App() {
+
+  // store is called for counter and isLogged actions
+  const counter= useSelector((state)=>state.counter);
+  const isLogged= useSelector((state)=>state.isLogged);
+
+  // actions dispatch called
+  const dispatch= useDispatch(); 
+
 
  
-function App(){
-  const {theme, toggle, dark} =UseContextValue();
-  console.log(dark);
   return (
     <div className='app'>
-      <h1>Theme Toggler</h1>
-      <div onClick={toggle} 
-      className= 'app-header'
-      style={{backgroundColor:theme.backgroundColor,
-        color: theme.color
-      }}>
-        <h1>Context Api Theme Toggler</h1>
-        <p>
-          In literary theory, a text is any object that can be "read", whether this object is a work of literature, a street sign, an arrangement of buildings on a city block, or styles of clothing. It is a coherent set of signs that transmits some kind of informative message.
-          In literary theory, a text is any object that can be "read", whether this object is a work of literature, a street sign, an arrangement of buildings on a city block, or styles of clothing. It is a coherent set of signs that transmits some kind of informative message.
-          In literary theory, a text is any object that can be "read", whether this object is a work of literature, a street sign, an arrangement of buildings on a city block, or styles of clothing. It is a coherent set of signs that transmits some kind of informative message.
-          In literary theory, a text is any object that can be "read", whether this object is a work of literature, a street sign, an arrangement of buildings on a city block, or styles of clothing. It is a coherent set of signs that transmits some kind of informative message.
-          In literary theory, a text is any object that can be "read", whether this object is a work of literature, a street sign, an arrangement of buildings on a city block, or styles of clothing. It is a coherent set of signs that transmits some kind of informative message.
-          In literary theory, a text is any object that can be "read", whether this object is a work of literature, a street sign, an arrangement of buildings on a city block, or styles of clothing. It is a coherent set of signs that transmits some kind of informative message.
-          In literary theory, a text is any object that can be "read", whether this object is a work of literature, a street sign, an arrangement of buildings on a city block, or styles of clothing. It is a coherent set of signs that transmits some kind of informative message.
-
-        </p>
-        <div className='button-container'>
-          {`Toggle to ${dark? 'Dark':'Light'} theme`};
-        </div>
-      </div>
+      <h2>counter: {counter}</h2>
+      <button onClick={()=> dispatch(increment())}>+</button>
+      <button onClick={()=> dispatch(decrement())}>-</button>
+      
+      {
+        isLogged ? <h3>Some important info</h3>: ""
+      }
+      <button onClick={()=>dispatch(signin())}>{isLogged?'Logout':'Login'}</button>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
+  
